@@ -5,14 +5,14 @@ import java.util.Date;
 public class Entry extends BaseClass {
     private String type;
     private Double amount;
-    private Date date;
+    private String date;
     private boolean paid;
     private long categoryId;
 
     public Entry() {
     }
 
-    public Entry(long id, String name, String description, String type, Double amount, Date date, boolean paid, long categoryId) {
+    public Entry(long id, String name, String description, String type, Double amount, String date, boolean paid, long categoryId) {
         super(id, name, description);
         this.type = type;
         this.amount = amount;
@@ -37,11 +37,11 @@ public class Entry extends BaseClass {
         this.amount = amount;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
