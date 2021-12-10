@@ -4,8 +4,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import trilha.back.finances.entities.Category;
 import trilha.back.finances.entities.Entry;
-
-import java.util.Date;
+import trilha.back.finances.entities.Product;
 
 @SpringBootApplication
 public class FinancesApplication {
@@ -21,6 +20,9 @@ public class FinancesApplication {
 		Entry entry = new Entry(1,"name","description",
 				"type",200.00, "01/01/1901",true,1);
 		System.out.println(entry.toString());
+
+		Product product = new Product(1, "name", "description", 200.00);
+		System.out.println(product.toString());
 
 		System.out.println("Now the objects created empties");
 
@@ -40,6 +42,13 @@ public class FinancesApplication {
 		entry2.setPaid(true);
 		entry2.setCategoryId(2);
 		System.out.println(entry2.toString());
+
+		Product product2 = new Product();
+		product2.setId(2);
+		product2.setName("name");
+		product2.setDescription("description");
+		product2.setPrice(200.00);
+		System.out.println(product2.toString());
 	}
 
 }
