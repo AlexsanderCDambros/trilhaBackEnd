@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import trilha.back.finances.entities.Entry;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -14,6 +15,7 @@ public class EntryController {
 
     @GetMapping
     public List<Entry> getAll() {
+        Collections.sort(this.list);
         return this.list;
     }
 

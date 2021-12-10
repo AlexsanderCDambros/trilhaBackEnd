@@ -2,23 +2,28 @@ package trilha.back.finances.entities;
 
 import java.util.Date;
 
-public class Entry extends BaseClass {
+public class Entry extends BaseClass implements Comparable<Entry> {
     private String type;
     private Double amount;
-    private String date;
+    private Date date;
     private boolean paid;
     private long categoryId;
 
     public Entry() {
     }
 
-    public Entry(long id, String name, String description, String type, Double amount, String date, boolean paid, long categoryId) {
+    public Entry(long id, String name, String description, String type, Double amount, Date date, boolean paid, long categoryId) {
         super(id, name, description);
         this.type = type;
         this.amount = amount;
         this.date = date;
         this.paid = paid;
         this.categoryId = categoryId;
+    }
+
+    @Override
+    public int compareTo(Entry outroAluno) {
+        return this.date.compareTo(outroAluno.getDate());
     }
 
     public String getType() {
@@ -37,11 +42,11 @@ public class Entry extends BaseClass {
         this.amount = amount;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

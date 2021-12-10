@@ -6,6 +6,8 @@ import trilha.back.finances.entities.Category;
 import trilha.back.finances.entities.Entry;
 import trilha.back.finances.entities.Product;
 
+import java.util.Date;
+
 @SpringBootApplication
 public class FinancesApplication {
 
@@ -18,7 +20,7 @@ public class FinancesApplication {
 		System.out.println(category.toString());
 
 		Entry entry = new Entry(1,"name","description",
-				"type",200.00, "01/01/1901",true,1);
+				"type",200.00, new Date(),true,1);
 		System.out.println(entry.toString());
 
 		Product product = new Product(1, "name", "description", 200.00);
@@ -38,7 +40,7 @@ public class FinancesApplication {
 		entry2.setDescription("description");
 		entry2.setType("type");
 		entry2.setAmount(200.00);
-		entry2.setDate("01/01/1901");
+		entry2.setDate(new Date());
 		entry2.setPaid(true);
 		entry2.setCategoryId(2);
 		System.out.println(entry2.toString());
