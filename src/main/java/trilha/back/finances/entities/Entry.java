@@ -22,8 +22,8 @@ public class Entry extends BaseClass implements Comparable<Entry> {
     }
 
     @Override
-    public int compareTo(Entry outroAluno) {
-        return this.date.compareTo(outroAluno.getDate());
+    public int compareTo(Entry otherEntry) {
+        return this.date.compareTo(otherEntry.getDate());
     }
 
     public String getType() {
