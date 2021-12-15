@@ -1,29 +1,80 @@
 package trilha.back.finances.entities;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
-public class Entry extends BaseClass implements Comparable<Entry> {
+@Entity
+@Table(name="Entry")
+public class Entry implements Serializable, Comparable<Entry> {
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private long id;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String description;
+
+    @Column(nullable = false)
     private String type;
+
+    @Column(nullable = false)
     private Double amount;
+
+    @Column(nullable = false)
     private Date date;
+
+    @Column(nullable = false)
     private boolean paid;
+
+    @Column(nullable = false)
     private long categoryId;
 
     public Entry() {
     }
 
-    public Entry(long id, String name, String description, String type, Double amount, Date date, boolean paid, long categoryId) {
-        super(id, name, description);
+    public Entry(long id, String name, String description, String type, Double amount, Date date, boolean paid, long category) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
         this.type = type;
         this.amount = amount;
         this.date = date;
         this.paid = paid;
-        this.categoryId = categoryId;
+        this.categoryId = category;
     }
 
     @Override
     public int compareTo(Entry otherEntry) {
         return this.date.compareTo(otherEntry.getDate());
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getType() {
@@ -62,8 +113,8 @@ public class Entry extends BaseClass implements Comparable<Entry> {
         return categoryId;
     }
 
-    public void setCategoryId(long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryId(long category) {
+        this.categoryId = category;
     }
 
     @Override
