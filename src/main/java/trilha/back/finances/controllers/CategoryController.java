@@ -26,13 +26,13 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity save(@RequestBody CategoryRequestDTO dto) {
-        Category category = dto.transformToObject();
+        Category category = categoryService.dtoToCategory(dto);
         return categoryService.save(category);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity update(@PathVariable long id, @RequestBody CategoryRequestDTO dto) {
-        Category category = dto.transformToObject();
+        Category category = categoryService.dtoToCategory(dto);
         return categoryService.update(id, category);
     }
 

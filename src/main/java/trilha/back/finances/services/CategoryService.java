@@ -1,5 +1,7 @@
 package trilha.back.finances.services;
 
+import io.swagger.models.Model;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,12 @@ public class CategoryService {
 
     @Autowired
     private CategoryRepository categoryRepository;
+
+    private ModelMapper mapper;
+
+    public CategoryService(ModelMapper mapper) {
+        this.mapper = mapper;
+    }
 
     public long idCategoryByName(String categoryName) {
         ArrayList<Category> result = categoryRepository.findByName(categoryName);
@@ -63,5 +71,10 @@ public class CategoryService {
             categoryRepository.deleteById(id);
             return ResponseEntity.status(HttpStatus.OK).body("resource deleted successfully");
         }
+    }
+
+    public Category dtoToCategory(CategoryRequestDTO categoryRequestDTO) {
+        Category category = mapper.map(categoryRequestDTO, Category.class);
+        return category;
     }
 }
