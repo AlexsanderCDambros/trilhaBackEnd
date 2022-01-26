@@ -1,73 +1,55 @@
 package trilha.back.finances.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import trilha.back.finances.entities.Category;
+import trilha.back.finances.dto.EntryRequestDTO;
 import trilha.back.finances.entities.Entry;
-import trilha.back.finances.repositories.EntryRepository;
+import trilha.back.finances.services.CategoryService;
 import trilha.back.finances.services.EntryService;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/entry")
 public class EntryController {
 
     @Autowired
-    private EntryRepository entryRepository;
+    private EntryService entryService;
 
     @Autowired
-    private EntryService entryService;
+    private CategoryService categoryService;
+
+    @GetMapping("/chart")
+    public ResponseEntity getChartCategory() {
+        return entryService.generateChartDTO();
+    }
 
     @GetMapping
     public ResponseEntity findAll() {
-        return ResponseEntity.status(HttpStatus.OK).body(entryRepository.findAll());
+        return entryService.findAll();
     }
 
     @GetMapping("/{id}")
     public ResponseEntity findById(@PathVariable long id) {
-        Optional<Entry> result = entryRepository.findById(id);
-        if (result.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Entry not found");
-        } else  {
-            return ResponseEntity.status(HttpStatus.OK).body(result);
-        }
+        return entryService.findById(id);
     }
 
     @PostMapping
-    public ResponseEntity save(@RequestBody Entry entry) {
-        return entryService.validateCategoryById(entry.getCategoryId()) ?
-                ResponseEntity.status(HttpStatus.CREATED).body(entryRepository.save(entry)) :
-                ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Category not found");
+    public ResponseEntity save(@RequestBody EntryRequestDTO dto) {
+        Entry entry = dto.transformToObject();
+        entry.setCategoryId(categoryService.idCategoryByName(dto.getName()));
+        return entryService.save(entry);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable long id, @RequestBody Entry entry) {
-        try {
-            Entry entryToEdit = entryRepository.findById(id)
-                    .orElseThrow();
-            entryToEdit.setName(entry.getName());
-            entryToEdit.setDescription(entry.getDescription());
-            entryToEdit.setCategoryId(entry.getCategoryId());
-            entryToEdit.setPaid(entry.isPaid());
-            entryToEdit.setDate(entry.getDate());
-            entryToEdit.setAmount(entry.getAmount());
-            entryToEdit.setType(entry.getType());
-            return entryService.validateCategoryById(entry.getCategoryId()) ?
-                    ResponseEntity.status(HttpStatus.OK).body(entryRepository.save(entryToEdit)) :
-                    ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Category not found");
-        } catch(Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Entry not found");
-        }
+    public ResponseEntity update(@PathVariable long id, @RequestBody EntryRequestDTO dto) {
+        Entry entry = dto.transformToObject();
+        entry.setCategoryId(categoryService.idCategoryByName(dto.getName()));
+        return entryService.update(id, entry);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity delete(@PathVariable long id) {
-        entryRepository.deleteById(id);
-        return ResponseEntity.status(HttpStatus.OK).body("resource deleted successfully");
+        return entryService.delete(id);
     }
 
 }
