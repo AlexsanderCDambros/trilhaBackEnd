@@ -1,12 +1,12 @@
 package trilha.back.finances.services;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import trilha.back.finances.dto.ChartDTO;
+import trilha.back.finances.dto.EntryRequestDTO;
 import trilha.back.finances.entities.Category;
 import trilha.back.finances.entities.Entry;
 import trilha.back.finances.repositories.CategoryRepository;
@@ -24,6 +24,12 @@ public class EntryService {
 
     @Autowired
     private EntryRepository entryRepository;
+
+    private ModelMapper mapper;
+
+    public EntryService(ModelMapper mapper) {
+        this.mapper = mapper;
+    }
 
     public ResponseEntity findAll() {
         return ResponseEntity.status(HttpStatus.OK).body(entryRepository.findAll());
@@ -110,4 +116,8 @@ public class EntryService {
         return ResponseEntity.status(HttpStatus.OK).body(dtoList);
     }
 
+    public Entry dtoToEntry(EntryRequestDTO entryRequestDTO) {
+        Entry entry = mapper.map(entryRequestDTO, Entry.class);
+        return entry;
+    }
 }

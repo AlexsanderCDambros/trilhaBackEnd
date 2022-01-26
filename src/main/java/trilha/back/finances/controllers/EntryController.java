@@ -35,14 +35,14 @@ public class EntryController {
 
     @PostMapping
     public ResponseEntity save(@RequestBody EntryRequestDTO dto) {
-        Entry entry = dto.transformToObject();
+        Entry entry = entryService.dtoToEntry(dto);
         entry.setCategoryId(categoryService.idCategoryByName(dto.getName()));
         return entryService.save(entry);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity update(@PathVariable long id, @RequestBody EntryRequestDTO dto) {
-        Entry entry = dto.transformToObject();
+        Entry entry = entryService.dtoToEntry(dto);
         entry.setCategoryId(categoryService.idCategoryByName(dto.getName()));
         return entryService.update(id, entry);
     }
