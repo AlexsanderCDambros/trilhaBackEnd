@@ -1,17 +1,42 @@
 package trilha.back.finances.dto;
 
+import org.hibernate.validator.constraints.Length;
 import trilha.back.finances.entities.Entry;
+import trilha.back.finances.enums.EntryType;
+import trilha.back.finances.enums.validators.ValidateEnum;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class EntryRequestDTO {
 
+    @NotEmpty(message = "name cannot be null")
+    @Length(min = 3, max = 45, message = "name length needs to be between 3 and 45")
     private String name;
+
+    @NotEmpty(message = "description cannot be null")
+    @Length(min = 15, max = 150, message = "description length needs to be between 15 and 150")
     private String description;
+
+    @NotEmpty(message = "type cannot be null")
+    @Length(min = 3, max = 15, message = "type length needs to be between 3 and 15")
+    @ValidateEnum(targetClassType = EntryType.class, message = "type should be expense or revenue")
     private String type;
+
+    @NotNull(message = "amount cannot be null")
+    @Min(value = 0, message ="amount should be equal or greater than 0")
     private Double amount;
+
+    @NotNull(message = "date cannot be null")
     private Date date;
-    private boolean paid;
+
+    @NotNull(message = "paid cannot be null")
+    private Boolean paid;
+
+    @NotEmpty(message = "categoryName cannot be null")
+    @Length(min = 3, max = 15, message = "categoryName length needs to be between 3 and 15")
     private String categoryName;
 
     public Entry transformToObject() {

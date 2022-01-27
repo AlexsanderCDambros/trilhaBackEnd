@@ -8,6 +8,8 @@ import trilha.back.finances.entities.Entry;
 import trilha.back.finances.services.CategoryService;
 import trilha.back.finances.services.EntryService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/entry")
 public class EntryController {
@@ -34,14 +36,14 @@ public class EntryController {
     }
 
     @PostMapping
-    public ResponseEntity save(@RequestBody EntryRequestDTO dto) {
+    public ResponseEntity save(@RequestBody @Valid EntryRequestDTO dto) {
         Entry entry = entryService.dtoToEntry(dto);
         entry.setCategoryId(categoryService.idCategoryByName(dto.getName()));
         return entryService.save(entry);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable long id, @RequestBody EntryRequestDTO dto) {
+    public ResponseEntity update(@PathVariable long id, @RequestBody @Valid EntryRequestDTO dto) {
         Entry entry = entryService.dtoToEntry(dto);
         entry.setCategoryId(categoryService.idCategoryByName(dto.getName()));
         return entryService.update(id, entry);

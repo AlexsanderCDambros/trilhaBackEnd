@@ -7,6 +7,8 @@ import trilha.back.finances.dto.CategoryRequestDTO;
 import trilha.back.finances.entities.Category;
 import trilha.back.finances.services.CategoryService;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/category")
 public class CategoryController {
@@ -25,13 +27,13 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity save(@RequestBody CategoryRequestDTO dto) {
+    public ResponseEntity save(@RequestBody @Valid CategoryRequestDTO dto) {
         Category category = categoryService.dtoToCategory(dto);
         return categoryService.save(category);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity update(@PathVariable long id, @RequestBody CategoryRequestDTO dto) {
+    public ResponseEntity update(@PathVariable long id, @RequestBody @Valid CategoryRequestDTO dto) {
         Category category = categoryService.dtoToCategory(dto);
         return categoryService.update(id, category);
     }
