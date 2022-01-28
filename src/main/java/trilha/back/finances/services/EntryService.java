@@ -15,6 +15,7 @@ import trilha.back.finances.repositories.EntryRepository;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EntryService {
@@ -79,24 +80,40 @@ public class EntryService {
     }
 
     public ResponseEntity generateChartDTO() {
-        List<ChartDTO> dtoList = new ArrayList<ChartDTO>();
+//        List<ChartDTO> dtoList = new ArrayList<ChartDTO>();
 
         List<Category> categoryList = categoryRepository.findAll();
 
-        for (Category category: categoryList) {
-            ChartDTO chartDTO = new ChartDTO();
-            chartDTO.setName(category.getName());
-            chartDTO.setType("expense");
-            chartDTO.setTotal(0.00);
-            for (Entry entry: category.getEntries()) {
-                if (entry.getType().equals("expense")) {
-                    chartDTO.setTotal(chartDTO.getTotal() + entry.getAmount());
-                }
-            }
-            if (chartDTO.getTotal() > 0) {
-                dtoList.add(chartDTO);
-            }
-        }
+        List<ChartDTO> dtoList = categoryList.stream()
+                .map(category -> {
+                    ChartDTO chartDTO = new ChartDTO();
+                    chartDTO.setName(category.getName());
+                    chartDTO.setType("expense");
+                    chartDTO.setTotal(0.00);
+                    for (Entry entry: category.getEntries()) {
+                        if (entry.getType().equals("expense")) {
+                            chartDTO.setTotal(chartDTO.getTotal() + entry.getAmount());
+                        }
+                    }
+                    return chartDTO;
+                })
+                .filter(dto -> dto.getTotal() > 0.00)
+                .collect(Collectors.toList());
+
+//        for (Category category: categoryList) {
+//            ChartDTO chartDTO = new ChartDTO();
+//            chartDTO.setName(category.getName());
+//            chartDTO.setType("expense");
+//            chartDTO.setTotal(0.00);
+//            for (Entry entry: category.getEntries()) {
+//                if (entry.getType().equals("expense")) {
+//                    chartDTO.setTotal(chartDTO.getTotal() + entry.getAmount());
+//                }
+//            }
+//            if (chartDTO.getTotal() > 0) {
+//                dtoList.add(chartDTO);
+//            }
+//        }
 
         for (Category category: categoryList) {
             ChartDTO chartDTO = new ChartDTO();
