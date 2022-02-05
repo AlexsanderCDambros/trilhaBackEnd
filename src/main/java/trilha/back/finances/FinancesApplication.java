@@ -4,11 +4,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-import trilha.back.finances.entities.Category;
-import trilha.back.finances.entities.Entry;
-import trilha.back.finances.entities.Product;
-
-import java.util.Date;
 
 @SpringBootApplication
 public class FinancesApplication {
