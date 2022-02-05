@@ -10,6 +10,7 @@ import trilha.back.finances.dto.EntryRequestDTO;
 import trilha.back.finances.entities.Category;
 import trilha.back.finances.entities.Entry;
 import trilha.back.finances.enums.EntryType;
+import trilha.back.finances.exceptions.UnsuportedMathOperationException;
 import trilha.back.finances.repositories.CategoryRepository;
 import trilha.back.finances.repositories.EntryRepository;
 
@@ -113,5 +114,13 @@ public class EntryService {
     public Entry dtoToEntry(EntryRequestDTO entryRequestDTO) {
         Entry entry = mapper.map(entryRequestDTO, Entry.class);
         return entry;
+    }
+
+    public ResponseEntity calculaMedia(Integer x, Integer y) {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(x/y);
+        } catch (Exception ex) {
+            throw new UnsuportedMathOperationException("Não é possível dividir por 0");
+        }
     }
 }
