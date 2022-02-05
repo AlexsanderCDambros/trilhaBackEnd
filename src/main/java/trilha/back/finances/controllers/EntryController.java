@@ -45,7 +45,7 @@ public class EntryController {
     @PutMapping("/{id}")
     public ResponseEntity update(@PathVariable long id, @RequestBody @Valid EntryRequestDTO dto) {
         Entry entry = entryService.dtoToEntry(dto);
-        entry.setCategoryId(categoryService.idCategoryByName(dto.getName()));
+        entry.setCategoryId(categoryService.idCategoryByName(dto.getCategoryName()));
         return entryService.update(id, entry);
     }
 
