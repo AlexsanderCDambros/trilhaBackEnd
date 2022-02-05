@@ -38,7 +38,7 @@ public class EntryController {
     @PostMapping
     public ResponseEntity save(@RequestBody @Valid EntryRequestDTO dto) {
         Entry entry = entryService.dtoToEntry(dto);
-        entry.setCategoryId(categoryService.idCategoryByName(dto.getName()));
+        entry.setCategoryId(categoryService.idCategoryByName(dto.getCategoryName()));
         return entryService.save(entry);
     }
 

@@ -9,10 +9,12 @@ import trilha.back.finances.dto.ChartDTO;
 import trilha.back.finances.dto.EntryRequestDTO;
 import trilha.back.finances.entities.Category;
 import trilha.back.finances.entities.Entry;
+import trilha.back.finances.enums.EntryType;
 import trilha.back.finances.repositories.CategoryRepository;
 import trilha.back.finances.repositories.EntryRepository;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -80,55 +82,30 @@ public class EntryService {
     }
 
     public ResponseEntity generateChartDTO() {
-//        List<ChartDTO> dtoList = new ArrayList<ChartDTO>();
 
         List<Category> categoryList = categoryRepository.findAll();
 
-        List<ChartDTO> dtoList = categoryList.stream()
-                .map(category -> {
-                    ChartDTO chartDTO = new ChartDTO();
-                    chartDTO.setName(category.getName());
-                    chartDTO.setType("expense");
-                    chartDTO.setTotal(0.00);
-                    for (Entry entry: category.getEntries()) {
-                        if (entry.getType().equals("expense")) {
-                            chartDTO.setTotal(chartDTO.getTotal() + entry.getAmount());
-                        }
-                    }
-                    return chartDTO;
-                })
-                .filter(dto -> dto.getTotal() > 0.00)
-                .collect(Collectors.toList());
+        List<ChartDTO> dtoList = new ArrayList<ChartDTO>();
 
-//        for (Category category: categoryList) {
-//            ChartDTO chartDTO = new ChartDTO();
-//            chartDTO.setName(category.getName());
-//            chartDTO.setType("expense");
-//            chartDTO.setTotal(0.00);
-//            for (Entry entry: category.getEntries()) {
-//                if (entry.getType().equals("expense")) {
-//                    chartDTO.setTotal(chartDTO.getTotal() + entry.getAmount());
-//                }
-//            }
-//            if (chartDTO.getTotal() > 0) {
-//                dtoList.add(chartDTO);
-//            }
-//        }
-
-        for (Category category: categoryList) {
-            ChartDTO chartDTO = new ChartDTO();
-            chartDTO.setName(category.getName());
-            chartDTO.setType("revenue");
-            chartDTO.setTotal(0.00);
-            for (Entry entry: category.getEntries()) {
-                if (entry.getType().equals("revenue")) {
-                    chartDTO.setTotal(chartDTO.getTotal() + entry.getAmount());
-                }
-            }
-            if (chartDTO.getTotal() > 0) {
-                dtoList.add(chartDTO);
-            }
-        }
+        Arrays.stream(EntryType.values()).forEach(entryType -> {
+             dtoList.addAll(
+                 categoryList.stream()
+                    .map(category -> {
+                        ChartDTO chartDTO = new ChartDTO();
+                        chartDTO.setName(category.getName());
+                        chartDTO.setType(entryType.toString());
+                        chartDTO.setTotal(0.00);
+                        category.getEntries().stream()
+                            .filter(entry -> entry.getType().equals(entryType.toString()))
+                            .forEach(entryFiltred -> {
+                               chartDTO.setTotal(chartDTO.getTotal() + entryFiltred.getAmount());
+                            });
+                        return chartDTO;
+                    })
+                    .filter(dto -> dto.getTotal() > 0.00)
+                    .collect(Collectors.toList())
+            );
+        });
 
         return ResponseEntity.status(HttpStatus.OK).body(dtoList);
     }
