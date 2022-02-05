@@ -26,7 +26,7 @@ public class Entry implements Serializable, Comparable<Entry> {
     private Double amount;
 
     @Column(nullable = false)
-    private Date date;
+    private String date;
 
     @Column(nullable = false)
     private boolean paid;
@@ -37,7 +37,7 @@ public class Entry implements Serializable, Comparable<Entry> {
     public Entry() {
     }
 
-    public Entry(long id, String name, String description, String type, Double amount, Date date, boolean paid, long category) {
+    public Entry(long id, String name, String description, String type, Double amount, String date, boolean paid, long category) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -93,11 +93,11 @@ public class Entry implements Serializable, Comparable<Entry> {
         this.amount = amount;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

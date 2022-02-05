@@ -10,14 +10,13 @@ import trilha.back.finances.dto.EntryRequestDTO;
 import trilha.back.finances.entities.Category;
 import trilha.back.finances.entities.Entry;
 import trilha.back.finances.enums.EntryType;
+import trilha.back.finances.exceptions.EmptyList;
 import trilha.back.finances.exceptions.UnsuportedMathOperationException;
+import trilha.back.finances.exceptions.WrongParameterException;
 import trilha.back.finances.repositories.CategoryRepository;
 import trilha.back.finances.repositories.EntryRepository;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -122,5 +121,22 @@ public class EntryService {
         } catch (Exception ex) {
             throw new UnsuportedMathOperationException("Não é possível dividir por 0");
         }
+    }
+
+    public ResponseEntity getLancamentosDependentes(String dataLancamento, String amount, Boolean paid) {
+        if (dataLancamento == null || amount == null || paid == null) {
+            throw new WrongParameterException("Parâmetros com valores errados");
+        }
+        List<Entry> entries = entryRepository.findAll().stream()
+                .filter(entry ->
+                    entry.getDate().equals(dataLancamento) &&
+                    entry.getAmount() == (Double.parseDouble(amount)) &&
+                    entry.isPaid() == paid
+                )
+                .collect(Collectors.toList());
+        if (entries.isEmpty()) {
+            throw new EmptyList("Não existe os dados pelos parâmetros passados");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(entries);
     }
 }

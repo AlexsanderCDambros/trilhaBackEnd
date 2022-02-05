@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
+import trilha.back.finances.exceptions.EmptyList;
 import trilha.back.finances.exceptions.ExceptionResponse;
 import trilha.back.finances.exceptions.UnsuportedMathOperationException;
+import trilha.back.finances.exceptions.WrongParameterException;
 
 import java.util.Date;
 
@@ -33,7 +35,27 @@ public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExce
                         new Date(),
                         ex.getMessage(),
                         request.getDescription(false));
-        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST );
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(WrongParameterException.class)
+    public final ResponseEntity<ExceptionResponse> handleWrongParameterException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(
+                        new Date(),
+                        ex.getMessage(),
+                        request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(EmptyList.class)
+    public final ResponseEntity<ExceptionResponse> handleEmptyListException(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse =
+                new ExceptionResponse(
+                        new Date(),
+                        ex.getMessage(),
+                        request.getDescription(false));
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.NOT_FOUND);
     }
 
 }

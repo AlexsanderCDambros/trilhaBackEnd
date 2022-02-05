@@ -30,7 +30,7 @@ public class EntryRequestDTO {
     private Double amount;
 
     @NotNull(message = "date cannot be null")
-    private Date date;
+    private String date;
 
     @NotNull(message = "paid cannot be null")
     private Boolean paid;
@@ -84,11 +84,11 @@ public class EntryRequestDTO {
         this.amount = amount;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

@@ -59,4 +59,13 @@ public class EntryController {
         return entryService.calculaMedia(x,y);
     }
 
+    @GetMapping("/filter")
+    public ResponseEntity getLancamentosDependentes(
+            @RequestParam(value = "data_Lancamento", required = false) String dataLancamento,
+            @RequestParam(value = "amount", required = false) String amount,
+            @RequestParam(value = "paid", required = false) boolean paid
+    ){
+        return entryService.getLancamentosDependentes(dataLancamento, amount, paid);
+    }
+
 }
