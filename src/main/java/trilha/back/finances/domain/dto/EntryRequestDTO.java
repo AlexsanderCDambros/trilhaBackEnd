@@ -1,9 +1,9 @@
-package trilha.back.finances.dto;
+package trilha.back.finances.domain.dto;
 
 import org.hibernate.validator.constraints.Length;
-import trilha.back.finances.entities.Entry;
-import trilha.back.finances.enums.EntryType;
-import trilha.back.finances.enums.validators.ValidateEnum;
+import trilha.back.finances.domain.entities.Entry;
+import trilha.back.finances.domain.enums.EntryType;
+import trilha.back.finances.domain.enums.validators.ValidateEnum;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;

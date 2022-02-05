@@ -1,4 +1,4 @@
-package trilha.back.finances.enums;
+package trilha.back.finances.domain.enums;
 
 public enum EntryType {
     expense, revenue

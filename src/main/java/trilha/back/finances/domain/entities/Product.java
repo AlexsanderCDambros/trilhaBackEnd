@@ -1,35 +1,23 @@
-package trilha.back.finances.entities;
+package trilha.back.finances.domain.entities;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.util.List;
+public class Product {
 
-@Entity
-@Table(name="Category")
-public class Category implements Serializable {
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
 
-    @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
     private String description;
 
-    @OneToMany()
-    @JoinColumn(name = "categoryId")
-    private List<Entry> entries;
+    private Double price;
 
-    public Category() {
+    public Product() {
     }
 
-    public Category(long id, String name, String description) {
+    public Product(long id, String name, String description, Double price) {
         this.id = id;
         this.name = name;
         this.description = description;
+        this.price = price;
     }
 
     public long getId() {
@@ -56,18 +44,19 @@ public class Category implements Serializable {
         this.description = description;
     }
 
-    public List<Entry> getEntries() {
-        return entries;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setEntries(List<Entry> entries) {
-        this.entries = entries;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
     @Override
     public String toString() {
-        return "Category{" +
-                "id=" + id +
+        return "Product{" +
+                "price=" + price +
+                ", id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 '}';

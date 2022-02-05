@@ -1,4 +1,4 @@
-package trilha.back.finances.exceptions.handlers;
+package trilha.back.finances.domain.exceptions.handlers;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-import trilha.back.finances.exceptions.ExceptionResponse;
-import trilha.back.finances.exceptions.UnsuportedMathOperationException;
+import trilha.back.finances.domain.exceptions.ExceptionResponse;
+import trilha.back.finances.domain.exceptions.UnsuportedMathOperationException;
 
 import java.util.Date;
 

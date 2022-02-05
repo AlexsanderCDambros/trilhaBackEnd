@@ -1,13 +1,13 @@
-package trilha.back.finances.services;
+package trilha.back.finances.domain.services;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import trilha.back.finances.dto.CategoryRequestDTO;
-import trilha.back.finances.entities.Category;
-import trilha.back.finances.repositories.CategoryRepository;
+import trilha.back.finances.domain.dto.CategoryRequestDTO;
+import trilha.back.finances.domain.entities.Category;
+import trilha.back.finances.adapter.repositories.CategoryRepository;
 
 import java.util.ArrayList;
 import java.util.Optional;

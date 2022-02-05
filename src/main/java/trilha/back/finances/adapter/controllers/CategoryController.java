@@ -1,11 +1,11 @@
-package trilha.back.finances.controllers;
+package trilha.back.finances.adapter.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import trilha.back.finances.dto.CategoryRequestDTO;
-import trilha.back.finances.entities.Category;
-import trilha.back.finances.services.CategoryService;
+import trilha.back.finances.domain.dto.CategoryRequestDTO;
+import trilha.back.finances.domain.entities.Category;
+import trilha.back.finances.domain.services.CategoryService;
 
 import javax.validation.Valid;
 

@@ -1,4 +1,4 @@
-package trilha.back.finances.entities;
+package trilha.back.finances.domain.entities;
 
 import javax.persistence.*;
 import java.io.Serializable;

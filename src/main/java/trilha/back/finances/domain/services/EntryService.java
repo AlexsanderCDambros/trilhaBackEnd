@@ -1,18 +1,18 @@
-package trilha.back.finances.services;
+package trilha.back.finances.domain.services;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import trilha.back.finances.dto.ChartDTO;
-import trilha.back.finances.dto.EntryRequestDTO;
-import trilha.back.finances.entities.Category;
-import trilha.back.finances.entities.Entry;
-import trilha.back.finances.enums.EntryType;
-import trilha.back.finances.exceptions.UnsuportedMathOperationException;
-import trilha.back.finances.repositories.CategoryRepository;
-import trilha.back.finances.repositories.EntryRepository;
+import trilha.back.finances.domain.dto.ChartDTO;
+import trilha.back.finances.domain.dto.EntryRequestDTO;
+import trilha.back.finances.domain.entities.Category;
+import trilha.back.finances.domain.entities.Entry;
+import trilha.back.finances.domain.enums.EntryType;
+import trilha.back.finances.domain.exceptions.UnsuportedMathOperationException;
+import trilha.back.finances.adapter.repositories.CategoryRepository;
+import trilha.back.finances.adapter.repositories.EntryRepository;
 
 import java.util.ArrayList;
 import java.util.Arrays;

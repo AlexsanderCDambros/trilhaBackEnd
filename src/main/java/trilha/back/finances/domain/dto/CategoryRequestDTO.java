@@ -1,8 +1,8 @@
-package trilha.back.finances.dto;
+package trilha.back.finances.domain.dto;
 
 import lombok.Getter;
 import org.hibernate.validator.constraints.Length;
-import trilha.back.finances.entities.Category;
+import trilha.back.finances.domain.entities.Category;
 
 import javax.validation.constraints.NotEmpty;
 

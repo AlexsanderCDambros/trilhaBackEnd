@@ -1,4 +1,4 @@
-package trilha.back.finances.dto;
+package trilha.back.finances.domain.dto;
 
 public class ChartDTO {
 

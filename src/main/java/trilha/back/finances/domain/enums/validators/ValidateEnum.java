@@ -1,4 +1,4 @@
-package trilha.back.finances.enums.validators;
+package trilha.back.finances.domain.enums.validators;
 
 import javax.validation.Constraint;
 import javax.validation.Payload;

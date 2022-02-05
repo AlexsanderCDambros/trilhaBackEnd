@@ -1,4 +1,4 @@
-package trilha.back.finances.exceptions;
+package trilha.back.finances.domain.exceptions;
 
 import java.io.Serializable;
 import java.util.Date;

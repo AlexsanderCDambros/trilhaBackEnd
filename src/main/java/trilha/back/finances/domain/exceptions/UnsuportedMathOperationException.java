@@ -1,4 +1,4 @@
-package trilha.back.finances.exceptions;
+package trilha.back.finances.domain.exceptions;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
