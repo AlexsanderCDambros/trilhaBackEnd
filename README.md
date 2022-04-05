@@ -5,7 +5,7 @@
 ## Sumário
 
 - [Desafio 1 - Git](#desafio-1---git)
-- [Desafio 2 - HTML + CSS](#desafio-2-poo)
+- [Desafio 2 - POO](#desafio-2---poo)
 
 ----
 
