@@ -55,4 +55,4 @@ fugiat illo nisi eum praesentium dolore officiis dolor eveniet modi eligendi, bl
 rerum doloribus exercitationem expedita corrupti.
 
 ## Hands On
-[Acesse o exercício clicando aqui](https://github.com/AlexsanderCDambros/trilhaFrontEnd/blob/main/desafio%202/index.html)
+[Acesse o exercício clicando aqui](https://github.com/AlexsanderCDambros/trilhaBackEnd/blob/main/src/main/java/trilha/back/finances/FinancesApplication.java)
